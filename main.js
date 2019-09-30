@@ -26,12 +26,13 @@ class Main{
         };
 
         let articulo = new Articulo(objArticulo);
-        if(tabla._contadorV<3){
+        if(tabla._contadorV<20){
             tabla.AgregarProducto(articulo);
             tabla.AgregarEnTabla(articulo);
+            tabla.ordenarArticulos();
             console.log(tabla._articulos);
         }else{
-            alert('No se puede papu');
+            alert('No se puede agregar más articulos');
         }
 
 

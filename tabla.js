@@ -32,7 +32,7 @@ export default class Tabla{
       if(this._contadorV < 20){
         this._articulos[this._contadorV] = objArticulo;
         this._contadorV++;
-
+        this.ordenarArticulos();
       }else{
         alert('El máximo de artículos es de 20, no puede agregar más');
       }
@@ -59,9 +59,7 @@ export default class Tabla{
         cellCantidad.innerHTML = articulo.cantidad;
         cellDescripcion.innerHTML = articulo.descripcion;
         this._borrar(row,articulo);
-      
 
-        
         this._numArt++; //Se aumenta el número de artículos totales
 
         
@@ -87,8 +85,30 @@ export default class Tabla{
     //Método para borrar un artículo
     borrarArticulo(row,articulo){
         let pos = this._buscarArticulo(articulo.codigo);
-        this._articulos.splice(pos, 1);
+        for(pos; pos < this._contadorV; pos++){
+          this._articulos[pos] = this._articulos[pos + 1];
+        }
+        this._articulos[this._contadorV - 1] = '';
+        
+        this._contadorV--;
+        console.log(this._articulos);
+
+
         row.remove();
+    }
+
+    ordenarArticulos(){
+      for(let i = 0; i < this._contadorV; i++){
+        for(let j = 0; j < this._contadorV; j++){
+          for(let k = 0; k < this._contadorV; k++){
+            if(this._articulos[j].codigo < this._articulos[k].codigo){
+              let a = this._articulos[j];
+              this._articulos[j] = this._articulos[k];
+              this._articulos[k] = a;
+            }
+          }
+        }
+      }
     }
     
     _buscarArticulo(codigo){
